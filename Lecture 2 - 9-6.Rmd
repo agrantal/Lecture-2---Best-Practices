@@ -1,0 +1,77 @@
+---
+title: "Lecture 2 - 9-6"
+output: html_document
+---
+
+# to load tidyverse package: 
+
+```{r}
+library(tidyverse)
+```
+
+# Basic Computations & Arithmetic
+```{r}
+2 + 3
+(18/3 + 1*2)^(4 - 2) - 6.2
+
+x = (18/3 + 1*2) ^ (4 - 2) - 6.18273
+y = c(1, 3, 6, 9)
+x + y
+```
+
+# Apply functions to objects
+
+```{r}
+x = runif(20) #runinf = selects a random number from a uniform distribution
+x
+
+mean(x)
+var(x)
+```
+
+# create a data frame (tibble) then create different subset variable names with a length of four
+
+```{r}
+example_df = tibble(
+  vec_numeric = 5:8, 
+  vec_char = c("My", "name", "is", "Jeff"), 
+  vec_logical = c(TRUE, TRUE, TRUE, FALSE),
+  vec_factor = factor(c("male", "male", "female", "female"))
+)
+```
+
+# examine classes to see if they are character, integer, factors, etc.
+
+```{r}
+class(example_df$vec_numeric) # this is an integer
+class(example_df$vec_factor) # this is a factor/categorical variable
+```
+
+# Basic Plots
+
+```{r}
+set.seed(1234) #set seed to ensure reproducibility
+
+plot_df = tibble( #define data frame that contains x and y
+  x = rnorm(1000, sd = .5),
+  y = 1 + 2*x + rnorm(1000)
+)
+
+ggplot(plot_df, aes(x = x)) + geom_histogram() #create histogram of x. Can use 'binwidth' to pick diff width values for the bars
+
+ggplot(plot_df, aes(x = x, y = y)) + geom_point() #create scatterplot of x and y
+```
+
+# to clear workspace, which enables you to restart and double chek that your code will re-run properly
+```{r}
+rm(list = ls())
+```
+# to check working directory
+```{r}
+getwd()
+```
+# to plot and save a scatterplot
+```{r}
+ggplot(plot_df, aes(x = x, y = y)) + geom_point()
+ggsave("scatter_plot.pdf", height = 4, width = 6)
+```
